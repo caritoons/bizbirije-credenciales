@@ -5,7 +5,7 @@ const data = {
   reportera: [
     "img/credenciales/reportera/reportera-amarillo.png",
     "img/credenciales/reportera/reportera-azul.png",
-    "img/credenciales/reportera/reportera-verde.png",
+    "img/credenciales/reportera/reportera-rosa.png",
     "img/credenciales/reportera/reportera-morado.png"
   ],
   reportero: [
@@ -95,3 +95,4 @@ descargarBtn.onclick = function () {
   link.href = canvas.toDataURL();
   link.click();
 };
+
