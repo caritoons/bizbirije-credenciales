@@ -65,14 +65,14 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Más grande */
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
       margin-bottom: 2rem;
     }
 
     .grid img {
-      width: 100%; /* Más grande */
-      max-width: 300px; /* Más grande */
+      width: 100%;
+      max-width: 300px;
       cursor: pointer;
       border-radius: 12px;
       transition: all .3s;
@@ -262,6 +262,59 @@
       color: #666;
     }
 
+    /* ESTILOS NUEVOS PARA CONTROLES DE FLECHAS */
+    #arrowControls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem;
+      text-align: center;
+    }
+
+    .control-block {
+      background: #f5f5f5;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+    }
+
+    .control-block strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #9c27b0;
+    }
+
+    .arrows {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .arrows button {
+      font-size: 1.4rem;
+      margin: 0;
+      padding: 0.4rem 0.6rem;
+      min-height: 50px;
+      background: #9c27b0;
+    }
+
+    .lock-btn {
+      grid-column: 1 / -1;
+      width: 100%;
+      font-size: 1rem !important;
+      padding: 0.5rem !important;
+      min-height: 40px !important;
+    }
+
+    .lock-btn.locked {
+      background: #4CAF50 !important;
+    }
+
+    .lock-btn.locked::after {
+      content: " 🔓";
+    }
+
     /* ESTILOS NUEVOS PARA EL PIE DE PÁGINA */
     .footer-container {
       background: #9c27b0;
@@ -304,615 +357,747 @@
     }
   </style>
 </head>
-<body oncontextmenu="return false;"> <header>
-  <img src="img/logo-once.png" alt="Logo Once" class="logo">
-  <h1> Bizbirije</h1>
-</header>
+<body oncontextmenu="return false;">
+  <header>
+    <img src="img/logo-once.png" alt="Logo Once" class="logo">
+    <h1> Bizbirije</h1>
+  </header>
 
-<div class="banner">
-  <h2>✨ Crea y Personaliza tu Credencial de Reportero ✨</h2>
-</div>
+  <div class="banner">
+    <h2>✨ Crea y Personaliza tu Credencial de Reportero ✨</h2>
+  </div>
 
-<section class="selector">
-  <h2>
-    <img src="img/reportera.png" alt="Reportera" class="section-icon">
-    Reportera
-  </h2>
-  <div class="grid" id="reportera"></div>
+  <section class="selector">
+    <h2>
+      <img src="img/reportera.png" alt="Reportera" class="section-icon">
+      Reportera
+    </h2>
+    <div class="grid" id="reportera"></div>
 
-  <h2>
-    <img src="img/reportero.png" alt="Reportero" class="section-icon">
-    Reportero
-  </h2>
-  <div class="grid" id="reportero"></div>
+    <h2>
+      <img src="img/reportero.png" alt="Reportero" class="section-icon">
+      Reportero
+    </h2>
+    <div class="grid" id="reportero"></div>
 
-  <h2>
-    <img src="img/mascotas.png" alt="Mascotas" class="section-icon">
-    Ayudante
-  </h2>
-  <div class="grid" id="ayudante"></div>
-</section>
+    <h2>
+      <img src="img/mascotas.png" alt="Mascotas" class="section-icon">
+      Ayudante
+    </h2>
+    <div class="grid" id="ayudante"></div>
+  </section>
 
-<section id="editor" hidden>
-  <h2>Personaliza tu credencial</h2>
+  <section id="editor" hidden>
+    <h2>Personaliza tu credencial</h2>
 
-<div class="instructions">
-  <strong>💡 ¿Cómo crear tu credencial?</strong><br><br>
+    <div class="instructions">
+      <strong>💡 ¿Cómo crear tu credencial?</strong><br><br>
 
-  1️⃣ Escribe tu nombre y <strong>muévelo con el mouse</strong> hasta colocarlo en su lugar.<br>
-  2️⃣ Sube una foto o usa la cámara 📸 y <strong>ajústala dentro del recuadro</strong>.<br>
-  3️⃣ Puedes mover y acomodar tu foto como quieras.<br>
-  4️⃣ Cuando esté lista, haz clic en <strong>Descargar credencial</strong> ⬇️
-</div>
-
-  <div class="controls">
-    <div class="control-group">
-      <label for="nombre">📝 Tu nombre:</label>
-      <input type="text" id="nombre" placeholder="Pon tu nombre aquí" maxlength="30">
+      1️⃣ Escribe tu nombre y <strong>muévelo con el mouse</strong> hasta colocarlo en su lugar.<br>
+      2️⃣ Sube una foto o usa la cámara 📸 y <strong>ajústala dentro del recuadro</strong>.<br>
+      3️⃣ Puedes mover y acomodar tu foto como quieras.<br>
+      4️⃣ Cuando esté lista, haz clic en <strong>Descargar credencial</strong> ⬇️
     </div>
 
-    <div class="control-group">
-      <label for="fuente">🔤 Tipo de letra:</label>
-      <select id="fuente">
-        <option value="Georgia, serif">Clásica</option>
-        <option value="'Comic Sans MS', cursive">Manuscrita</option>
-        <option value="'Arial Black', sans-serif">Gruesa</option>
-        <option value="'Courier New', monospace">Máquina de escribir</option>
-      </select>
-    </div>
+    <div class="controls">
+      <div class="control-group">
+        <label for="nombre">📝 Tu nombre:</label>
+        <input type="text" id="nombre" placeholder="Pon tu nombre aquí" maxlength="30">
+      </div>
 
-    <div class="control-group">
-      <label for="color">🎨 Color del texto:</label>
-      <select id="color">
-        <option value="#000">Negro</option>
-        <option value="#6a1b9a">Morado</option>
-        <option value="#1b5e20">Verde</option>
-        <option value="#0d47a1">Azul</option>
-        <option value="#c62828">Rojo</option>
-        <option value="#ff6f00">Naranja</option>
-        <option value="#fff" style="background: #333">Blanco</option>
-      </select>
-    </div>
+      <div class="control-group">
+        <label for="fuente">🔤 Tipo de letra:</label>
+        <select id="fuente">
+          <option value="Georgia, serif">Clásica</option>
+          <option value="'Comic Sans MS', cursive">Manuscrita</option>
+          <option value="'Arial Black', sans-serif">Gruesa</option>
+          <option value="'Courier New', monospace">Máquina de escribir</option>
+        </select>
+      </div>
 
-    <div class="control-group">
-      <label for="fontSize">📏 Tamaño texto:</label>
-      <input type="number" id="fontSize" value="48" min="20" max="100">
-    </div>
+      <div class="control-group">
+        <label for="color">🎨 Color del texto:</label>
+        <select id="color">
+          <option value="#000">Negro</option>
+          <option value="#6a1b9a">Morado</option>
+          <option value="#1b5e20">Verde</option>
+          <option value="#0d47a1">Azul</option>
+          <option value="#c62828">Rojo</option>
+          <option value="#ff6f00">Naranja</option>
+          <option value="#fff" style="background: #333">Blanco</option>
+        </select>
+      </div>
 
-    <div class="control-group">
-      <label for="photoScale">🖼️ Tamaño foto:</label>
-      <input type="range" id="photoScale" min="50" max="150" value="100" step="5">
-      <div class="slider-label">
-        <span>Pequeña</span>
-        <span id="photoScaleValue">100%</span>
-        <span>Grande</span>
+      <div class="control-group">
+        <label for="fontSize">📏 Tamaño texto:</label>
+        <input type="number" id="fontSize" value="48" min="20" max="100">
+      </div>
+
+      <div class="control-group">
+        <label for="photoScale">🖼️ Tamaño foto:</label>
+        <input type="range" id="photoScale" min="50" max="150" value="100" step="5">
+        <div class="slider-label">
+          <span>Pequeña</span>
+          <span id="photoScaleValue">100%</span>
+          <span>Grande</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="instructions">
-    <strong>📸 Tu foto:</strong> Sube una foto o tómala con tu cámara
-    <div class="photo-controls">
-      <button id="startCamera">📷 Tomar Foto</button>
-      <button id="uploadPhoto" onclick="document.getElementById('fileInput').click()">📁 Subir Foto</button>
-      <button id="removePhoto" style="background: #f44336;">🗑️ Quitar Foto</button>
+    <div class="instructions">
+      <strong>📸 Tu foto:</strong> Sube una foto o tómala con tu cámara
+      <div class="photo-controls">
+        <button id="startCamera">📷 Tomar Foto</button>
+        <button id="uploadPhoto" onclick="document.getElementById('fileInput').click()">📁 Subir Foto</button>
+        <button id="removePhoto" style="background: #f44336;">🗑️ Quitar Foto</button>
+      </div>
+      
+      <div class="photo-controls-advanced">
+        <button id="zoomOut">➖</button>
+        <span id="zoomLevel">100%</span>
+        <button id="zoomIn">➕</button>
+        <button id="centerPhoto" style="margin-left: 1rem;">🎯 Centrar</button>
+        <button id="fitPhoto" style="background: #4CAF50;">📐 Ajustar</button>
+      </div>
+      
+      <input type="file" id="fileInput" accept="image/*">
+      <video id="cameraPreview" autoplay></video>
+      <button id="capturePhoto" style="display: none; background: #4CAF50;">📸 Capturar Foto</button>
     </div>
-    
-    <div class="photo-controls-advanced">
-      <button id="zoomOut">➖</button>
-      <span id="zoomLevel">100%</span>
-      <button id="zoomIn">➕</button>
-      <button id="centerPhoto" style="margin-left: 1rem;">🎯 Centrar</button>
-      <button id="fitPhoto" style="background: #4CAF50;">📐 Ajustar</button>
+
+    <div class="canvas-container">
+      <canvas id="canvas"></canvas>
+      <div class="photo-frame" id="photoFrame"></div>
+      <div class="photo-frame-label" id="photoFrameLabel">Arrastra tu foto aquí</div>
     </div>
-    
-    <input type="file" id="fileInput" accept="image/*">
-    <video id="cameraPreview" autoplay></video>
-    <button id="capturePhoto" style="display: none; background: #4CAF50;">📸 Capturar Foto</button>
-  </div>
 
-  <div class="canvas-container">
-    <canvas id="canvas"></canvas>
-    <div class="photo-frame" id="photoFrame"></div>
-    <div class="photo-frame-label" id="photoFrameLabel">Arrastra tu foto aquí</div>
-  </div>
+    <!-- CONTROLES DE FLECHAS PARA MÓVIL -->
+    <div id="arrowControls">
+      <div class="control-block">
+        <strong>Nombre</strong>
+        <div class="arrows">
+          <button onclick="moveText(0, -5)">⬆️</button>
+          <button onclick="moveText(-5, 0)">⬅️</button>
+          <button onclick="moveText(5, 0)">➡️</button>
+          <button onclick="moveText(0, 5)">⬇️</button>
+          <button id="lockTextBtn" onclick="toggleTextLock()" class="lock-btn">🔒 Fijar</button>
+        </div>
+      </div>
 
-  <div class="button-group">
-    <button id="descargar">⬇️ Descargar Credencial</button>
-    <button id="reset" style="background: #f57c00;">🔄 Reiniciar</button>
-    <button id="playSound" style="background: #00897b;">🔊 Reproducir Sonido</button>
-  </div>
-</section>
+      <div class="control-block">
+        <strong>Foto</strong>
+        <div class="arrows">
+          <button onclick="movePhoto(0, -5)">⬆️</button>
+          <button onclick="movePhoto(-5, 0)">⬅️</button>
+          <button onclick="movePhoto(5, 0)">➡️</button>
+          <button onclick="movePhoto(0, 5)">⬇️</button>
+          <button id="lockPhotoBtn" onclick="togglePhotoLock()" class="lock-btn">🔒 Fijar</button>
+        </div>
+      </div>
+    </div>
 
-<footer class="footer-container">
-  <p>¿Te gustaría volver a disfrutar de las series y películas que pasaron por el Canal 11?
+    <div class="button-group">
+      <button id="descargar">⬇️ Descargar Credencial</button>
+      <button id="reset" style="background: #f57c00;">🔄 Reiniciar</button>
+      <button id="playSound" style="background: #00897b;">🔊 Reproducir Sonido</button>
+    </div>
+  </section>
+
+  <footer class="footer-container">
+    <p>¿Te gustaría volver a disfrutar de las series y películas que pasaron por el Canal 11?
 📺✨
 Ahora puedes encontrarlas aquí, en Telegram.</p>
-  <a href="https://t.me/+NsUVM4HdCe1lOGEx" target="_blank" class="telegram-link">Canal de Telegram</a>
-  <br>
-  <div class="flag-counter-wrapper">
-    <a href="https://info.flagcounter.com/8Gj9"><img src="https://s01.flagcounter.com/count2/8Gj9/bg_FFFFFF/txt_000000/border_CCCCCC/columns_6/maxflags_20/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-  </div>
-</footer>
+    <a href="https://t.me/+NsUVM4HdCe1lOGEx" target="_blank" class="telegram-link">Canal de Telegram</a>
+    <br>
+    <div class="flag-counter-wrapper">
+      <a href="https://info.flagcounter.com/8Gj9"><img src="https://s01.flagcounter.com/count2/8Gj9/bg_FFFFFF/txt_000000/border_CCCCCC/columns_6/maxflags_20/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+    </div>
+  </footer>
 
-<script>
-// Datos de las credenciales
-const data = {
-  reportera: [
-    "img/credenciales/reportera/reportera-amarillo.png",
-    "img/credenciales/reportera/reportera-azul.png",
-    "img/credenciales/reportera/reportera-rosa.png",
-    "img/credenciales/reportera/reportera-morado.png"
-  ],
-  reportero: [
-    "img/credenciales/reportero/reportero-amarillo.png",
-    "img/credenciales/reportero/reportero-azul.png",
-    "img/credenciales/reportero/reportero-verde.png",
-    "img/credenciales/reportero/reportero-morado.png"
-  ],
-  ayudante: [
-    "img/credenciales/ayudante/ayudante-amarillo.png",
-    "img/credenciales/ayudante/ayudante-azul.png",
-    "img/credenciales/ayudante/ayudante-verde.png",
-    "img/credenciales/ayudante/ayudante-morado.png"
-  ]
-};
-
-// Elementos del DOM
-const grids = {
-  reportera: document.getElementById("reportera"),
-  reportero: document.getElementById("reportero"),
-  ayudante: document.getElementById("ayudante")
-};
-
-const editor = document.getElementById("editor");
-const nombreInput = document.getElementById("nombre");
-const fuenteSelect = document.getElementById("fuente");
-const colorSelect = document.getElementById("color");
-const fontSizeInput = document.getElementById("fontSize");
-const canvas = document.getElementById("canvas");
-const descargarBtn = document.getElementById("descargar");
-const resetBtn = document.getElementById("reset");
-const playSoundBtn = document.getElementById("playSound");
-const startCameraBtn = document.getElementById("startCamera");
-const uploadPhotoBtn = document.getElementById("uploadPhoto");
-const removePhotoBtn = document.getElementById("removePhoto");
-const fileInput = document.getElementById("fileInput");
-const cameraPreview = document.getElementById("cameraPreview");
-const capturePhotoBtn = document.getElementById("capturePhoto");
-const photoFrame = document.getElementById("photoFrame");
-const photoFrameLabel = document.getElementById("photoFrameLabel");
-
-// NUEVOS ELEMENTOS PARA CONTROLES DE FOTO
-const photoScaleInput = document.getElementById('photoScale');
-const photoScaleValue = document.getElementById('photoScaleValue');
-const zoomInBtn = document.getElementById('zoomIn');
-const zoomOutBtn = document.getElementById('zoomOut');
-const zoomLevelSpan = document.getElementById('zoomLevel');
-const centerPhotoBtn = document.getElementById('centerPhoto');
-const fitPhotoBtn = document.getElementById('fitPhoto');
-
-let currentImage = null;
-let currentType = "";
-let userPhoto = null;
-let textX = null;
-let textY = null;
-let photoX = null;
-let photoY = null;
-let photoBaseWidth = 200;   // Ancho base según plantilla
-let photoBaseHeight = 250;  // Alto base según plantilla
-let photoScale = 1.0;       // Escala actual (1.0 = tamaño base)
-let photoWidth = photoBaseWidth;
-let photoHeight = photoBaseHeight;
-let isDraggingText = false;
-let isDraggingPhoto = false;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
-let stream = null;
-
-const ctx = canvas.getContext("2d");
-
-// Crear contexto de audio
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
-
-// Función para reproducir sonidos
-function playSound(type) {
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  
-  if (type === 'reportera') {
-    oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.1);
-    oscillator.type = 'sine';
-  } else if (type === 'reportero') {
-    oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(554.37, audioCtx.currentTime + 0.1);
-    oscillator.type = 'square';
-  } else if (type === 'ayudante') {
-    oscillator.frequency.setValueAtTime(349.23, audioCtx.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(466.16, audioCtx.currentTime + 0.1);
-    oscillator.type = 'triangle';
-  }
-  
-  gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-  
-  oscillator.start(audioCtx.currentTime);
-  oscillator.stop(audioCtx.currentTime + 0.3);
-}
-
-// Crear las tarjetas de credenciales (MÁS GRANDES)
-for (const type in data) {
-  data[type].forEach((src, index) => {
-    const alt = `${type} ${index + 1}`;
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = src;
-    img.alt = alt;
-    
-    img.onload = function() {
-      const gridImg = img.cloneNode();
-      gridImg.style.cursor = 'pointer';
-      gridImg.style.borderRadius = '12px';
-      gridImg.style.transition = 'all 0.3s';
-      gridImg.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-      
-      gridImg.onclick = () => {
-        playSound(type);
-        abrirEditor(src, type);
-      };
-      
-      gridImg.onmouseover = function() {
-        this.style.transform = 'scale(1.05)';
-        this.style.boxShadow = '0 8px 12px rgba(0,0,0,0.2)';
-      };
-      
-      gridImg.onmouseout = function() {
-        this.style.transform = 'scale(1)';
-        this.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-      };
-      
-      grids[type].appendChild(gridImg);
+  <script>
+    // Datos de las credenciales
+    const data = {
+      reportera: [
+        "img/credenciales/reportera/reportera-amarillo.png",
+        "img/credenciales/reportera/reportera-azul.png",
+        "img/credenciales/reportera/reportera-rosa.png",
+        "img/credenciales/reportera/reportera-morado.png"
+      ],
+      reportero: [
+        "img/credenciales/reportero/reportero-amarillo.png",
+        "img/credenciales/reportero/reportero-azul.png",
+        "img/credenciales/reportero/reportero-verde.png",
+        "img/credenciales/reportero/reportero-morado.png"
+      ],
+      ayudante: [
+        "img/credenciales/ayudante/ayudante-amarillo.png",
+        "img/credenciales/ayudante/ayudante-azul.png",
+        "img/credenciales/ayudante/ayudante-verde.png",
+        "img/credenciales/ayudante/ayudante-morado.png"
+      ]
     };
-    
-    img.onerror = function() {
-      console.error(`Error al cargar: ${src}`);
+
+    // Elementos del DOM
+    const grids = {
+      reportera: document.getElementById("reportera"),
+      reportero: document.getElementById("reportero"),
+      ayudante: document.getElementById("ayudante")
     };
-  });
-}
 
-function abrirEditor(src, type) {
-  editor.hidden = false;
-  currentType = type;
-  currentImage = new Image();
-  currentImage.crossOrigin = "anonymous";
-  
-  currentImage.onload = function () {
-    const dimensions = {
-      'reportera': { width: 200, height: 240, y: 180 },
-      'reportero': { width: 200, height: 240, y: 180 },
-      'ayudante': { width: 180, height: 220, y: 150 }
-    };
+    const editor = document.getElementById("editor");
+    const nombreInput = document.getElementById("nombre");
+    const fuenteSelect = document.getElementById("fuente");
+    const colorSelect = document.getElementById("color");
+    const fontSizeInput = document.getElementById("fontSize");
+    const canvas = document.getElementById("canvas");
+    const descargarBtn = document.getElementById("descargar");
+    const resetBtn = document.getElementById("reset");
+    const playSoundBtn = document.getElementById("playSound");
+    const startCameraBtn = document.getElementById("startCamera");
+    const uploadPhotoBtn = document.getElementById("uploadPhoto");
+    const removePhotoBtn = document.getElementById("removePhoto");
+    const fileInput = document.getElementById("fileInput");
+    const cameraPreview = document.getElementById("cameraPreview");
+    const capturePhotoBtn = document.getElementById("capturePhoto");
+    const photoFrame = document.getElementById("photoFrame");
+    const photoFrameLabel = document.getElementById("photoFrameLabel");
+    const lockTextBtn = document.getElementById("lockTextBtn");
+    const lockPhotoBtn = document.getElementById("lockPhotoBtn");
+
+    // NUEVOS ELEMENTOS PARA CONTROLES DE FOTO
+    const photoScaleInput = document.getElementById('photoScale');
+    const photoScaleValue = document.getElementById('photoScaleValue');
+    const zoomInBtn = document.getElementById('zoomIn');
+    const zoomOutBtn = document.getElementById('zoomOut');
+    const zoomLevelSpan = document.getElementById('zoomLevel');
+    const centerPhotoBtn = document.getElementById('centerPhoto');
+    const fitPhotoBtn = document.getElementById('fitPhoto');
+
+    let currentImage = null;
+    let currentType = "";
+    let userPhoto = null;
+    let textX = null;
+    let textY = null;
+    let photoX = null;
+    let photoY = null;
+    let photoBaseWidth = 200;
+    let photoBaseHeight = 250;
+    let photoScale = 1.0;
+    let photoWidth = photoBaseWidth;
+    let photoHeight = photoBaseHeight;
+    let isDraggingText = false;
+    let isDraggingPhoto = false;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let stream = null;
     
-    const dim = dimensions[type] || dimensions.reportero;
-    textX = currentImage.width / 2;
-    textY = currentImage.height - 150;
-    photoBaseWidth = dim.width;
-    photoBaseHeight = dim.height;
-    photoScale = 1.0; 
-    photoWidth = photoBaseWidth * photoScale;
-    photoHeight = photoBaseHeight * photoScale;
-    photoX = currentImage.width / 2 - photoWidth / 2;
-    photoY = dim.y;
-    
-    photoScaleInput.value = 100;
-    photoScaleValue.textContent = '100%';
-    zoomLevelSpan.textContent = '100%';
-    updatePhotoFrame();
-    drawCanvas();
-    editor.scrollIntoView({ behavior: 'smooth' });
-  };
-  currentImage.src = src;
-}
+    // NUEVAS VARIABLES PARA BLOQUEO
+    let textLocked = false;
+    let photoLocked = false;
 
-function updatePhotoFrame() {
-  if (!currentImage) return;
-  const rect = canvas.getBoundingClientRect();
-  const scaleX = rect.width / canvas.width;
-  const scaleY = rect.height / canvas.height;
-  photoFrame.style.width = `${photoWidth * scaleX}px`;
-  photoFrame.style.height = `${photoHeight * scaleY}px`;
-  photoFrame.style.left = `${rect.left + photoX * scaleX}px`;
-  photoFrame.style.top = `${rect.top + photoY * scaleY}px`;
-}
+    const ctx = canvas.getContext("2d");
 
-function drawCanvas() {
-  if (!currentImage || currentImage.width === 0) return;
-  canvas.width = currentImage.width;
-  canvas.height = currentImage.height;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(currentImage, 0, 0);
-  
-  if (userPhoto) {
-    ctx.save();
-    const borderRadius = 15;
-    ctx.beginPath();
-    ctx.moveTo(photoX + borderRadius, photoY);
-    ctx.lineTo(photoX + photoWidth - borderRadius, photoY);
-    ctx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
-    ctx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
-    ctx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
-    ctx.lineTo(photoX + borderRadius, photoY + photoHeight);
-    ctx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
-    ctx.lineTo(photoX, photoY + borderRadius);
-    ctx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
-    ctx.closePath();
-    ctx.clip();
-    ctx.drawImage(userPhoto, photoX, photoY, photoWidth, photoHeight);
-    ctx.restore();
-    ctx.beginPath();
-    ctx.moveTo(photoX + borderRadius, photoY);
-    ctx.lineTo(photoX + photoWidth - borderRadius, photoY);
-    ctx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
-    ctx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
-    ctx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
-    ctx.lineTo(photoX + borderRadius, photoY + photoHeight);
-    ctx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
-    ctx.lineTo(photoX, photoY + borderRadius);
-    ctx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
-    ctx.closePath();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = '#9c27b0';
-    ctx.stroke();
-  }
+    // Crear contexto de audio
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = new AudioContext();
 
-  const name = nombreInput.value.toUpperCase() || "TU NOMBRE";
-  const font = fuenteSelect.value;
-  const color = colorSelect.value;
-  const fontSize = fontSizeInput.value;
-  ctx.fillStyle = color;
-  ctx.strokeStyle = '#fff';
-  ctx.lineWidth = 3;
-  ctx.textAlign = "center";
-  ctx.font = `${fontSize}px ${font}`;
-  if (textX === null || textY === null) {
-    textX = canvas.width / 2;
-    textY = currentImage.height - 150;
-  }
-  ctx.strokeText(name, textX, textY);
-  ctx.fillText(name, textX, textY);
-  updatePhotoFrame();
-}
+    // Función para reproducir sonidos
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
 
-photoScaleInput.addEventListener('input', function() {
-  photoScale = this.value / 100;
-  photoWidth = photoBaseWidth * photoScale;
-  photoHeight = photoBaseHeight * photoScale;
-  photoScaleValue.textContent = this.value + '%';
-  zoomLevelSpan.textContent = this.value + '%';
-  drawCanvas();
-});
-
-zoomInBtn.addEventListener('click', function() {
-  let newValue = parseInt(photoScaleInput.value) + 10;
-  if (newValue > 150) newValue = 150;
-  photoScaleInput.value = newValue;
-  photoScaleInput.dispatchEvent(new Event('input'));
-});
-
-zoomOutBtn.addEventListener('click', function() {
-  let newValue = parseInt(photoScaleInput.value) - 10;
-  if (newValue < 50) newValue = 50;
-  photoScaleInput.value = newValue;
-  photoScaleInput.dispatchEvent(new Event('input'));
-});
-
-centerPhotoBtn.addEventListener('click', function() {
-  if (currentImage && userPhoto) {
-    photoX = currentImage.width / 2 - photoWidth / 2;
-    drawCanvas();
-  }
-});
-
-fitPhotoBtn.addEventListener('click', function() {
-  photoScaleInput.value = 100;
-  photoScaleInput.dispatchEvent(new Event('input'));
-  if (currentImage && userPhoto) {
-    photoX = currentImage.width / 2 - photoWidth / 2;
-    drawCanvas();
-  }
-});
-
-startCameraBtn.addEventListener('click', async function() {
-  try {
-    if (stream) stream.getTracks().forEach(track => track.stop());
-    stream = await navigator.mediaDevices.getUserMedia({ 
-      video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }, 
-      audio: false 
-    });
-    cameraPreview.srcObject = stream;
-    cameraPreview.style.display = 'block';
-    capturePhotoBtn.style.display = 'inline-block';
-  } catch (error) {
-    alert('No se pudo acceder a la cámara. Asegúrate de dar permisos.');
-  }
-});
-
-capturePhotoBtn.addEventListener('click', function() {
-  if (!stream) return;
-  const tempCanvas = document.createElement('canvas');
-  tempCanvas.width = cameraPreview.videoWidth;
-  tempCanvas.height = cameraPreview.videoHeight;
-  const tempCtx = tempCanvas.getContext('2d');
-  tempCtx.translate(tempCanvas.width, 0);
-  tempCtx.scale(-1, 1);
-  tempCtx.drawImage(cameraPreview, 0, 0);
-  userPhoto = new Image();
-  userPhoto.onload = function() {
-    drawCanvas();
-    cameraPreview.style.display = 'none';
-    capturePhotoBtn.style.display = 'none';
-    stream.getTracks().forEach(track => track.stop());
-    stream = null;
-  };
-  userPhoto.src = tempCanvas.toDataURL('image/png');
-  photoFrameLabel.style.display = 'none';
-});
-
-fileInput.addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file || !file.type.match('image.*')) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    userPhoto = new Image();
-    userPhoto.onload = function() {
-      drawCanvas();
-      photoFrameLabel.style.display = 'none';
-    };
-    userPhoto.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-});
-
-removePhotoBtn.addEventListener('click', function() {
-  userPhoto = null;
-  drawCanvas();
-  photoFrameLabel.style.display = 'block';
-});
-
-canvas.addEventListener('mousedown', function(e) {
-  const rect = canvas.getBoundingClientRect();
-  const scaleX = canvas.width / rect.width;
-  const scaleY = canvas.height / rect.height;
-  const mouseX = (e.clientX - rect.left) * scaleX;
-  const mouseY = (e.clientY - rect.top) * scaleY;
-  if (isClickOnText(mouseX, mouseY)) {
-    isDraggingText = true;
-    dragOffsetX = mouseX - textX;
-    dragOffsetY = mouseY - textY;
-    canvas.style.cursor = 'grabbing';
-  } else if (isClickOnPhoto(mouseX, mouseY) && userPhoto) {
-    isDraggingPhoto = true;
-    dragOffsetX = mouseX - photoX;
-    dragOffsetY = mouseY - photoY;
-    canvas.style.cursor = 'grabbing';
-  }
-});
-
-canvas.addEventListener('mousemove', function(e) {
-  const rect = canvas.getBoundingClientRect();
-  const scaleX = canvas.width / rect.width;
-  const scaleY = canvas.height / rect.height;
-  const mouseX = (e.clientX - rect.left) * scaleX;
-  const mouseY = (e.clientY - rect.top) * scaleY;
-  if (isDraggingText) {
-    textX = mouseX - dragOffsetX;
-    textY = mouseY - dragOffsetY;
-    drawCanvas();
-  } else if (isDraggingPhoto) {
-    photoX = mouseX - dragOffsetX;
-    photoY = mouseY - dragOffsetY;
-    drawCanvas();
-  } else {
-    canvas.style.cursor = (isClickOnText(mouseX, mouseY) || (isClickOnPhoto(mouseX, mouseY) && userPhoto)) ? 'grab' : 'default';
-  }
-});
-
-canvas.addEventListener('mouseup', () => { isDraggingText = false; isDraggingPhoto = false; canvas.style.cursor = 'default'; });
-canvas.addEventListener('mouseleave', () => { isDraggingText = false; isDraggingPhoto = false; });
-
-function isClickOnText(mouseX, mouseY) {
-  const name = nombreInput.value.toUpperCase() || "TU NOMBRE";
-  const fontSize = parseInt(fontSizeInput.value);
-  ctx.font = `${fontSize}px ${fuenteSelect.value}`;
-  const metrics = ctx.measureText(name);
-  return (mouseX >= textX - metrics.width / 2 && mouseX <= textX + metrics.width / 2 && mouseY >= textY - fontSize && mouseY <= textY);
-}
-
-function isClickOnPhoto(mouseX, mouseY) {
-  return (userPhoto && mouseX >= photoX && mouseX <= photoX + photoWidth && mouseY >= photoY && mouseY <= photoY + photoHeight);
-}
-
-nombreInput.oninput = drawCanvas;
-fuenteSelect.onchange = drawCanvas;
-colorSelect.onchange = drawCanvas;
-fontSizeInput.oninput = drawCanvas;
-
-descargarBtn.addEventListener('click', function() {
-  try {
-    if (!currentImage || currentImage.width === 0) return;
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = currentImage.width;
-    tempCanvas.height = currentImage.height;
-    const tempCtx = tempCanvas.getContext('2d');
-    tempCtx.drawImage(currentImage, 0, 0);
-    if (userPhoto) {
-      tempCtx.save();
-      const borderRadius = 15;
-      tempCtx.beginPath();
-      tempCtx.moveTo(photoX + borderRadius, photoY);
-      tempCtx.lineTo(photoX + photoWidth - borderRadius, photoY);
-      tempCtx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
-      tempCtx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
-      tempCtx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
-      tempCtx.lineTo(photoX + borderRadius, photoY + photoHeight);
-      tempCtx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
-      tempCtx.lineTo(photoX, photoY + borderRadius);
-      tempCtx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
-      tempCtx.closePath();
-      tempCtx.clip();
-      tempCtx.drawImage(userPhoto, photoX, photoY, photoWidth, photoHeight);
-      tempCtx.restore();
-      tempCtx.beginPath();
-      tempCtx.moveTo(photoX + borderRadius, photoY);
-      tempCtx.lineTo(photoX + photoWidth - borderRadius, photoY);
-      tempCtx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
-      tempCtx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
-      tempCtx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
-      tempCtx.lineTo(photoX + borderRadius, photoY + photoHeight);
-      tempCtx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
-      tempCtx.lineTo(photoX, photoY + borderRadius);
-      tempCtx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
-      tempCtx.closePath();
-      tempCtx.lineWidth = 3;
-      tempCtx.strokeStyle = '#9c27b0';
-      tempCtx.stroke();
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      if (type === 'reportera') {
+        oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.1);
+        oscillator.type = 'sine';
+      } else if (type === 'reportero') {
+        oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(554.37, audioCtx.currentTime + 0.1);
+        oscillator.type = 'square';
+      } else if (type === 'ayudante') {
+        oscillator.frequency.setValueAtTime(349.23, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(466.16, audioCtx.currentTime + 0.1);
+        oscillator.type = 'triangle';
+      }
+      
+      gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      
+      oscillator.start(audioCtx.currentTime);
+      oscillator.stop(audioCtx.currentTime + 0.3);
     }
-    const name = nombreInput.value.toUpperCase() || "REPORTERO";
-    tempCtx.fillStyle = colorSelect.value;
-    tempCtx.strokeStyle = '#fff';
-    tempCtx.lineWidth = 3;
-    tempCtx.textAlign = "center";
-    tempCtx.font = `${fontSizeInput.value}px ${fuenteSelect.value}`;
-    tempCtx.strokeText(name, textX || tempCanvas.width / 2, textY || tempCanvas.height - 150);
-    tempCtx.fillText(name, textX || tempCanvas.width / 2, textY || tempCanvas.height - 150);
-    const link = document.createElement('a');
-    link.download = `credencial-bizbirije-${nombreInput.value.trim() || 'credencial'}.png`;
-    link.href = tempCanvas.toDataURL('image/png');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } catch (error) { alert('Hubo un error al descargar.'); }
-});
 
-resetBtn.addEventListener('click', function() {
-  if (confirm('¿Quieres reiniciar toda la credencial?')) {
-    location.reload();
-  }
-});
+    // Crear las tarjetas de credenciales
+    for (const type in data) {
+      data[type].forEach((src, index) => {
+        const alt = `${type} ${index + 1}`;
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = src;
+        img.alt = alt;
+        
+        img.onload = function() {
+          const gridImg = img.cloneNode();
+          gridImg.style.cursor = 'pointer';
+          gridImg.style.borderRadius = '12px';
+          gridImg.style.transition = 'all 0.3s';
+          gridImg.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+          
+          gridImg.onclick = () => {
+            playSound(type);
+            abrirEditor(src, type);
+          };
+          
+          gridImg.onmouseover = function() {
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 8px 12px rgba(0,0,0,0.2)';
+          };
+          
+          gridImg.onmouseout = function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+          };
+          
+          grids[type].appendChild(gridImg);
+        };
+        
+        img.onerror = function() {
+          console.error(`Error al cargar: ${src}`);
+        };
+      });
+    }
 
-playSoundBtn.addEventListener('click', () => currentType ? playSound(currentType) : alert('Primero selecciona una credencial'));
-window.addEventListener('resize', updatePhotoFrame);
-</script>
+    function abrirEditor(src, type) {
+      editor.hidden = false;
+      currentType = type;
+      currentImage = new Image();
+      currentImage.crossOrigin = "anonymous";
+      
+      currentImage.onload = function () {
+        const dimensions = {
+          'reportera': { width: 200, height: 240, y: 180 },
+          'reportero': { width: 200, height: 240, y: 180 },
+          'ayudante': { width: 180, height: 220, y: 150 }
+        };
+        
+        const dim = dimensions[type] || dimensions.reportero;
+        textX = currentImage.width / 2;
+        textY = currentImage.height - 150;
+        photoBaseWidth = dim.width;
+        photoBaseHeight = dim.height;
+        photoScale = 1.0;
+        photoWidth = photoBaseWidth * photoScale;
+        photoHeight = photoBaseHeight * photoScale;
+        photoX = currentImage.width / 2 - photoWidth / 2;
+        photoY = dim.y;
+        
+        // Resetear bloqueos al cargar nueva plantilla
+        textLocked = false;
+        photoLocked = false;
+        updateLockButtons();
+        
+        photoScaleInput.value = 100;
+        photoScaleValue.textContent = '100%';
+        zoomLevelSpan.textContent = '100%';
+        updatePhotoFrame();
+        drawCanvas();
+        editor.scrollIntoView({ behavior: 'smooth' });
+      };
+      currentImage.src = src;
+    }
+
+    function updatePhotoFrame() {
+      if (!currentImage) return;
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = rect.width / canvas.width;
+      const scaleY = rect.height / canvas.height;
+      photoFrame.style.width = `${photoWidth * scaleX}px`;
+      photoFrame.style.height = `${photoHeight * scaleY}px`;
+      photoFrame.style.left = `${rect.left + photoX * scaleX}px`;
+      photoFrame.style.top = `${rect.top + photoY * scaleY}px`;
+    }
+
+    function drawCanvas() {
+      if (!currentImage || currentImage.width === 0) return;
+      canvas.width = currentImage.width;
+      canvas.height = currentImage.height;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(currentImage, 0, 0);
+      
+      if (userPhoto) {
+        ctx.save();
+        const borderRadius = 15;
+        ctx.beginPath();
+        ctx.moveTo(photoX + borderRadius, photoY);
+        ctx.lineTo(photoX + photoWidth - borderRadius, photoY);
+        ctx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
+        ctx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
+        ctx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
+        ctx.lineTo(photoX + borderRadius, photoY + photoHeight);
+        ctx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
+        ctx.lineTo(photoX, photoY + borderRadius);
+        ctx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(userPhoto, photoX, photoY, photoWidth, photoHeight);
+        ctx.restore();
+        ctx.beginPath();
+        ctx.moveTo(photoX + borderRadius, photoY);
+        ctx.lineTo(photoX + photoWidth - borderRadius, photoY);
+        ctx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
+        ctx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
+        ctx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
+        ctx.lineTo(photoX + borderRadius, photoY + photoHeight);
+        ctx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
+        ctx.lineTo(photoX, photoY + borderRadius);
+        ctx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
+        ctx.closePath();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#9c27b0';
+        ctx.stroke();
+      }
+
+      const name = nombreInput.value.toUpperCase() || "TU NOMBRE";
+      const font = fuenteSelect.value;
+      const color = colorSelect.value;
+      const fontSize = fontSizeInput.value;
+      ctx.fillStyle = color;
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 3;
+      ctx.textAlign = "center";
+      ctx.font = `${fontSize}px ${font}`;
+      if (textX === null || textY === null) {
+        textX = canvas.width / 2;
+        textY = currentImage.height - 150;
+      }
+      ctx.strokeText(name, textX, textY);
+      ctx.fillText(name, textX, textY);
+      updatePhotoFrame();
+    }
+
+    // FUNCIONES PARA MOVER CON FLECHAS
+    function moveText(dx, dy) {
+      if (textLocked) return;
+      textX += dx;
+      textY += dy;
+      drawCanvas();
+    }
+
+    function movePhoto(dx, dy) {
+      if (photoLocked) return;
+      photoX += dx;
+      photoY += dy;
+      drawCanvas();
+    }
+
+    function toggleTextLock() {
+      textLocked = !textLocked;
+      updateLockButtons();
+    }
+
+    function togglePhotoLock() {
+      photoLocked = !photoLocked;
+      updateLockButtons();
+    }
+
+    function updateLockButtons() {
+      lockTextBtn.textContent = textLocked ? "🔓 Desbloquear" : "🔒 Fijar";
+      lockTextBtn.classList.toggle('locked', textLocked);
+      
+      lockPhotoBtn.textContent = photoLocked ? "🔓 Desbloquear" : "🔒 Fijar";
+      lockPhotoBtn.classList.toggle('locked', photoLocked);
+    }
+
+    photoScaleInput.addEventListener('input', function() {
+      photoScale = this.value / 100;
+      photoWidth = photoBaseWidth * photoScale;
+      photoHeight = photoBaseHeight * photoScale;
+      photoScaleValue.textContent = this.value + '%';
+      zoomLevelSpan.textContent = this.value + '%';
+      drawCanvas();
+    });
+
+    zoomInBtn.addEventListener('click', function() {
+      let newValue = parseInt(photoScaleInput.value) + 10;
+      if (newValue > 150) newValue = 150;
+      photoScaleInput.value = newValue;
+      photoScaleInput.dispatchEvent(new Event('input'));
+    });
+
+    zoomOutBtn.addEventListener('click', function() {
+      let newValue = parseInt(photoScaleInput.value) - 10;
+      if (newValue < 50) newValue = 50;
+      photoScaleInput.value = newValue;
+      photoScaleInput.dispatchEvent(new Event('input'));
+    });
+
+    centerPhotoBtn.addEventListener('click', function() {
+      if (currentImage && userPhoto) {
+        photoX = currentImage.width / 2 - photoWidth / 2;
+        drawCanvas();
+      }
+    });
+
+    fitPhotoBtn.addEventListener('click', function() {
+      photoScaleInput.value = 100;
+      photoScaleInput.dispatchEvent(new Event('input'));
+      if (currentImage && userPhoto) {
+        photoX = currentImage.width / 2 - photoWidth / 2;
+        drawCanvas();
+      }
+    });
+
+    startCameraBtn.addEventListener('click', async function() {
+      try {
+        if (stream) stream.getTracks().forEach(track => track.stop());
+        stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }, 
+          audio: false 
+        });
+        cameraPreview.srcObject = stream;
+        cameraPreview.style.display = 'block';
+        capturePhotoBtn.style.display = 'inline-block';
+      } catch (error) {
+        alert('No se pudo acceder a la cámara. Asegúrate de dar permisos.');
+      }
+    });
+
+    capturePhotoBtn.addEventListener('click', function() {
+      if (!stream) return;
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = cameraPreview.videoWidth;
+      tempCanvas.height = cameraPreview.videoHeight;
+      const tempCtx = tempCanvas.getContext('2d');
+      tempCtx.translate(tempCanvas.width, 0);
+      tempCtx.scale(-1, 1);
+      tempCtx.drawImage(cameraPreview, 0, 0);
+      userPhoto = new Image();
+      userPhoto.onload = function() {
+        drawCanvas();
+        cameraPreview.style.display = 'none';
+        capturePhotoBtn.style.display = 'none';
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      };
+      userPhoto.src = tempCanvas.toDataURL('image/png');
+      photoFrameLabel.style.display = 'none';
+    });
+
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file || !file.type.match('image.*')) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        userPhoto = new Image();
+        userPhoto.onload = function() {
+          drawCanvas();
+          photoFrameLabel.style.display = 'none';
+        };
+        userPhoto.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    removePhotoBtn.addEventListener('click', function() {
+      userPhoto = null;
+      drawCanvas();
+      photoFrameLabel.style.display = 'block';
+    });
+
+    // MANEJO DE DRAG AND DROP (CON BLOQUEO)
+    canvas.addEventListener('mousedown', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const mouseX = (e.clientX - rect.left) * scaleX;
+      const mouseY = (e.clientY - rect.top) * scaleY;
+      
+      if (!textLocked && isClickOnText(mouseX, mouseY)) {
+        isDraggingText = true;
+        dragOffsetX = mouseX - textX;
+        dragOffsetY = mouseY - textY;
+        canvas.style.cursor = 'grabbing';
+      } else if (!photoLocked && isClickOnPhoto(mouseX, mouseY) && userPhoto) {
+        isDraggingPhoto = true;
+        dragOffsetX = mouseX - photoX;
+        dragOffsetY = mouseY - photoY;
+        canvas.style.cursor = 'grabbing';
+      }
+    });
+
+    canvas.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const touch = e.touches[0];
+      const touchX = (touch.clientX - rect.left) * scaleX;
+      const touchY = (touch.clientY - rect.top) * scaleY;
+      
+      if (!textLocked && isClickOnText(touchX, touchY)) {
+        isDraggingText = true;
+        dragOffsetX = touchX - textX;
+        dragOffsetY = touchY - textY;
+        canvas.style.cursor = 'grabbing';
+      } else if (!photoLocked && isClickOnPhoto(touchX, touchY) && userPhoto) {
+        isDraggingPhoto = true;
+        dragOffsetX = touchX - photoX;
+        dragOffsetY = touchY - photoY;
+        canvas.style.cursor = 'grabbing';
+      }
+    });
+
+    canvas.addEventListener('mousemove', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const mouseX = (e.clientX - rect.left) * scaleX;
+      const mouseY = (e.clientY - rect.top) * scaleY;
+      
+      if (isDraggingText && !textLocked) {
+        textX = mouseX - dragOffsetX;
+        textY = mouseY - dragOffsetY;
+        drawCanvas();
+      } else if (isDraggingPhoto && !photoLocked) {
+        photoX = mouseX - dragOffsetX;
+        photoY = mouseY - dragOffsetY;
+        drawCanvas();
+      } else {
+        canvas.style.cursor = (isClickOnText(mouseX, mouseY) || (isClickOnPhoto(mouseX, mouseY) && userPhoto)) ? 'grab' : 'default';
+      }
+    });
+
+    canvas.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      if (e.touches.length !== 1) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const touch = e.touches[0];
+      const touchX = (touch.clientX - rect.left) * scaleX;
+      const touchY = (touch.clientY - rect.top) * scaleY;
+      
+      if (isDraggingText && !textLocked) {
+        textX = touchX - dragOffsetX;
+        textY = touchY - dragOffsetY;
+        drawCanvas();
+      } else if (isDraggingPhoto && !photoLocked) {
+        photoX = touchX - dragOffsetX;
+        photoY = touchY - dragOffsetY;
+        drawCanvas();
+      }
+    });
+
+    canvas.addEventListener('mouseup', () => { 
+      isDraggingText = false; 
+      isDraggingPhoto = false; 
+      canvas.style.cursor = 'default'; 
+    });
+    
+    canvas.addEventListener('touchend', () => { 
+      isDraggingText = false; 
+      isDraggingPhoto = false; 
+      canvas.style.cursor = 'default'; 
+    });
+    
+    canvas.addEventListener('mouseleave', () => { 
+      isDraggingText = false; 
+      isDraggingPhoto = false; 
+    });
+
+    function isClickOnText(mouseX, mouseY) {
+      const name = nombreInput.value.toUpperCase() || "TU NOMBRE";
+      const fontSize = parseInt(fontSizeInput.value);
+      ctx.font = `${fontSize}px ${fuenteSelect.value}`;
+      const metrics = ctx.measureText(name);
+      return (mouseX >= textX - metrics.width / 2 && mouseX <= textX + metrics.width / 2 && mouseY >= textY - fontSize && mouseY <= textY);
+    }
+
+    function isClickOnPhoto(mouseX, mouseY) {
+      return (userPhoto && mouseX >= photoX && mouseX <= photoX + photoWidth && mouseY >= photoY && mouseY <= photoY + photoHeight);
+    }
+
+    nombreInput.oninput = drawCanvas;
+    fuenteSelect.onchange = drawCanvas;
+    colorSelect.onchange = drawCanvas;
+    fontSizeInput.oninput = drawCanvas;
+
+    descargarBtn.addEventListener('click', function() {
+      try {
+        if (!currentImage || currentImage.width === 0) return;
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = currentImage.width;
+        tempCanvas.height = currentImage.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(currentImage, 0, 0);
+        if (userPhoto) {
+          tempCtx.save();
+          const borderRadius = 15;
+          tempCtx.beginPath();
+          tempCtx.moveTo(photoX + borderRadius, photoY);
+          tempCtx.lineTo(photoX + photoWidth - borderRadius, photoY);
+          tempCtx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
+          tempCtx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
+          tempCtx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
+          tempCtx.lineTo(photoX + borderRadius, photoY + photoHeight);
+          tempCtx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
+          tempCtx.lineTo(photoX, photoY + borderRadius);
+          tempCtx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
+          tempCtx.closePath();
+          tempCtx.clip();
+          tempCtx.drawImage(userPhoto, photoX, photoY, photoWidth, photoHeight);
+          tempCtx.restore();
+          tempCtx.beginPath();
+          tempCtx.moveTo(photoX + borderRadius, photoY);
+          tempCtx.lineTo(photoX + photoWidth - borderRadius, photoY);
+          tempCtx.quadraticCurveTo(photoX + photoWidth, photoY, photoX + photoWidth, photoY + borderRadius);
+          tempCtx.lineTo(photoX + photoWidth, photoY + photoHeight - borderRadius);
+          tempCtx.quadraticCurveTo(photoX + photoWidth, photoY + photoHeight, photoX + photoWidth - borderRadius, photoY + photoHeight);
+          tempCtx.lineTo(photoX + borderRadius, photoY + photoHeight);
+          tempCtx.quadraticCurveTo(photoX, photoY + photoHeight, photoX, photoY + photoHeight - borderRadius);
+          tempCtx.lineTo(photoX, photoY + borderRadius);
+          tempCtx.quadraticCurveTo(photoX, photoY, photoX + borderRadius, photoY);
+          tempCtx.closePath();
+          tempCtx.lineWidth = 3;
+          tempCtx.strokeStyle = '#9c27b0';
+          tempCtx.stroke();
+        }
+        const name = nombreInput.value.toUpperCase() || "REPORTERO";
+        tempCtx.fillStyle = colorSelect.value;
+        tempCtx.strokeStyle = '#fff';
+        tempCtx.lineWidth = 3;
+        tempCtx.textAlign = "center";
+        tempCtx.font = `${fontSizeInput.value}px ${fuenteSelect.value}`;
+        tempCtx.strokeText(name, textX || tempCanvas.width / 2, textY || tempCanvas.height - 150);
+        tempCtx.fillText(name, textX || tempCanvas.width / 2, textY || tempCanvas.height - 150);
+        const link = document.createElement('a');
+        link.download = `credencial-bizbirije-${nombreInput.value.trim() || 'credencial'}.png`;
+        link.href = tempCanvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) { 
+        alert('Hubo un error al descargar.'); 
+        console.error(error);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      if (confirm('¿Quieres reiniciar toda la credencial?')) {
+        location.reload();
+      }
+    });
+
+    playSoundBtn.addEventListener('click', () => currentType ? playSound(currentType) : alert('Primero selecciona una credencial'));
+    window.addEventListener('resize', updatePhotoFrame);
+  </script>
 </body>
-
 </html>
-
